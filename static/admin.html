@@ -28,7 +28,7 @@
             const value = document.getElementById("value").value;
 
             try {
-                const response = await fetch(`http://localhost:5000/content/${key}`, {
+                const response = await fetch(`https://final-firestore-vercel.vercel.app/content/${key}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
