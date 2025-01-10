@@ -12,7 +12,7 @@
         async function fetchContent() {
             try {
                 // Fetch content from the FastAPI endpoint
-                const response = await fetch("http://localhost:5000/content");
+                const response = await fetch("https://final-firestore-vercel.vercel.app/content");
                 const data = await response.json();
         
                 // Log the response data to check if it's correct
