@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Content</title>
+</head>
+<body>
+    <h1>Update Content</h1>
+
+    <form id="updateForm">
+        <label for="key">Key:</label>
+        <input type="text" id="key" name="key" required><br><br>
+        
+        <label for="value">Value:</label>
+        <input type="text" id="value" name="value" required><br><br>
+        
+        <button type="submit">Update Content</button>
+    </form>
+
+    <p id="responseMessage"></p>
+
+    <script>
+        document.getElementById("updateForm").addEventListener("submit", async (event) => {
+            event.preventDefault(); // Prevent form submission from refreshing the page
+
+            const key = document.getElementById("key").value;
+            const value = document.getElementById("value").value;
+
+            try {
+                const response = await fetch(`http://localhost:5000/content/${key}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ value: value }),
+                });
+
+                const data = await response.json();
+                document.getElementById("responseMessage").textContent = data.message;
+            } catch (error) {
+                document.getElementById("responseMessage").textContent = "Failed to update content.";
+                console.error("Error updating content:", error);
+            }
+        });
+    </script>
+</body>
+</html>

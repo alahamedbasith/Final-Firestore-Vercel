@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Content</title>
+</head>
+<body>
+    <h1 id="message">Loading...</h1>
+
+    <script>
+        async function fetchContent() {
+            try {
+                // Fetch content from the FastAPI endpoint
+                const response = await fetch("http://localhost:5000/content");
+                const data = await response.json();
+        
+                // Log the response data to check if it's correct
+                console.log(data);
+        
+                // Display content from a specific key
+                const key = "1"; // Document ID in Firestore
+                if (data[key]) {
+                    document.getElementById("message").textContent = data[key].value;
+                } else {
+                    document.getElementById("message").textContent = "No content available for the specified key.";
+                }
+            } catch (error) {
+                document.getElementById("message").textContent = "Failed to fetch content.";
+                console.error("Error fetching content:", error);
+            }
+        }
+        
+
+        // Fetch content on page load
+        fetchContent();
+    </script>
+</body>
+</html>
